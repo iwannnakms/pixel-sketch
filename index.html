@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <link rel="stylesheet" href="style.css">
+    <script src ='script.js' defer></script>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Alumni+Sans+Pinstripe:ital@0;1&family=Bangers&family=Bitcount+Grid+Double:wght@100..900&family=Funnel+Sans:ital,wght@0,300..800;1,300..800&display=swap" rel="stylesheet">
+<body>
+    <div class="flex-box">
+        <header>
+            <h1>
+                Etch a sketch
+            </h1>
+        </header>
+        <div class="flex-box-2">
+            <div class="flex-box-3">
+                <div class="controls">
+                    <div class="color-picker">
+                        <input type="color" value="#ffffff" id="color-picker-id">
+                    </div>
+                    <div class="button-box">
+                        <button id="color-mode">
+                            Color Mode
+                        </button>
+                        <button id="rainbow-mode">
+                            Rainbow Mode
+                        </button>
+                        <button id="fill">
+                            Fill
+                        </button>
+                        <button id="eraser">
+                            Eraser
+                        </button>
+                        <button id="clear">
+                            Clear
+                        </button>
+                    </div>
+                    <div class="slide-container">
+                        <div id="size-value">32 x 32</div>
+                        <input type="range" min="1" max="64" value="32" id="slider">
+                    </div>
+                </div>
+                <div class="grid-container">
+                        <div class="grid" id="grid">
+                        </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</body>
+</html>

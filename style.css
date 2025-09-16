@@ -1,0 +1,138 @@
+:root{
+    font-size: 62.5%;
+    color:white;
+    background-color: black;
+}
+body{
+    box-sizing: border-box;
+    margin: 0;
+    padding: 0;
+    font-family: "Alumni Sans Pinstripe",-apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif, "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol";
+    padding: 0;
+}
+.flex-box{
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    width: 100vw;
+    height: 100vh;
+}
+header{
+    padding:2rem;
+}
+h1{
+    font-family: "Bitcount Grid Double";
+    font-size: 10rem;
+}
+.flex-box-2{
+    display: flex;
+}
+.flex-box-3{
+    display: flex;
+    gap: 5rem;
+    justify-content: center;
+    align-items: center;
+}
+.controls{
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 1rem;
+}
+.button-box{
+    display: flex;
+    flex-direction: column;
+    gap: 1.5rem;
+}
+button{
+    background-color: rgb(0,0,0);
+    font-size: 3rem;
+    width: 20rem;
+    border-radius: 1rem;
+    padding: 1rem;
+    border: dashed 2px white;
+    color: white;
+    transform: scale(1);
+    font-family: "Alumni Sans Pinstripe",-apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif, "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol";
+}
+button:hover{
+    transform: scale(1.05);
+}
+#clear:active{
+    background-color: rgb(255, 255, 255); 
+    color: #000000;
+}
+.active{
+    background-color: rgb(255, 255, 255); 
+    color: #000000;
+}
+input[type="color"]{
+    width: 100px;
+    height: 100px;
+    border: none;
+    padding: 0;
+    appearance: none;
+    background-color: transparent;
+}
+input[type='color']::-webkit-color-swatch-wrapper {
+  padding: 0;
+}
+input[type='color']::-webkit-color-swatch {
+  border: none;
+  border-radius: 100%;
+}
+.grid-container{
+    height: 60rem;
+    width: 60rem;
+    background-color: rgb(17, 16, 16);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    box-shadow: 0 0 0 0.01rem #fff;
+}
+.grid{
+    display: grid;
+    grid-template-rows: repeat(1,1fr);
+    grid-template-columns: repeat(1,1fr);
+    height: 50rem;
+    width: 50rem;
+    background-color: white;
+}
+
+.grid-element{
+    background-color: black;
+    border-collapse: collapse;
+    box-shadow: 0 0 0 0.01rem #fff;
+
+}
+.slide-container{
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    gap: 1rem;
+}
+#size-value{
+    font-size: 4rem;
+}
+input[type="range"]{
+    appearance: none;
+    width: 17rem;
+    border-radius: 1rem;
+    background-color:rgb(17, 16, 16);;
+}
+input[type="range"]::-webkit-slider-runnable-track{
+    height: 0.75rem;
+    width: 17rem;
+    border-radius: 0.1rem;
+    box-shadow: 0 0 0 0.01rem #fff;
+
+}
+input[type="range"]::-webkit-slider-thumb{
+    -webkit-appearance: none;
+    height: 2.5rem;
+    width: 2.5rem;
+    border-radius: 100%;
+    background-color: white;
+    margin-top: -1rem;
+}
