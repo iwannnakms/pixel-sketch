@@ -164,10 +164,14 @@ input[type="range"]::-webkit-slider-thumb{
     .grid{
         height: 90vw;
         width: 90vw;
+        border: solid 0.2rem white;
+    }
+    .grid-element{
+        box-shadow: none;
     }
     .grid-container{
-        height: 93vw;
-        width: 93vw;
+        height: 90vw;
+        width: 90vw;
         box-shadow: none;
     }
     .slide-container{
@@ -202,8 +206,11 @@ input[type="range"]::-webkit-slider-thumb{
         width: 90vw;
     }
     .grid-container{
-        height: 93vw;
-        width: 93vw;
+        height: 90vw;
+        width: 90vw;
+        box-shadow: none;
+    }
+    .grid-element{
         box-shadow: none;
     }
     .slide-container{
