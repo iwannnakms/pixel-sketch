@@ -38,10 +38,6 @@ fill_button.addEventListener("click",()=>{
 color_input.addEventListener("input",(e)=>{
     current_color = e.target.value;
 });
-
-document.addEventListener("mouseup",()=>{
-    mouse_pressed = false;
-})
 slider.addEventListener("input",(event)=>{
     clearGrid();
     updateDisplay(event);
@@ -56,6 +52,28 @@ grid.addEventListener("mousemove", (e) => {
     if (mouse_pressed) {
         colorGridElement(e.target,true);
     }
+});
+document.addEventListener("mouseup",()=>{
+    mouse_pressed = false;
+})
+grid.addEventListener("touchstart", (e) => {
+    e.preventDefault(); 
+    mouse_pressed = true;
+    const touch = e.touches[0];
+    const target = document.elementFromPoint(touch.clientX, touch.clientY);
+    colorGridElement(target, true);
+}, { passive: false });
+
+grid.addEventListener("touchmove", (e) => {
+    e.preventDefault();
+    if (mouse_pressed) {
+        const touch = e.touches[0];
+        const target = document.elementFromPoint(touch.clientX, touch.clientY);
+        colorGridElement(target, true);
+    }
+}, { passive: false });
+document.addEventListener("touchend", () => {
+    mouse_pressed = false;
 });
 
 function colorGridElement(target,race){
