@@ -162,12 +162,12 @@ input[type="range"]::-webkit-slider-thumb{
     border: dashed 0.2rem white;
     }
     .grid{
-        height: 75vw;
-        width: 75vw;
+        height: 90vw;
+        width: 90vw;
     }
     .grid-container{
-        height: 76vw;
-        width: 76vw;
+        height: 93vw;
+        width: 93vw;
     }
     .grid-element{
         border-collapse: collapse;
@@ -193,12 +193,12 @@ input[type="range"]::-webkit-slider-thumb{
     border: dashed 0.2rem white;
     }
     .grid{
-        height: 75vw;
-        width: 75vw;
+        height: 90vw;
+        width: 90vw;
     }
     .grid-container{
-        height: 76vw;
-        width: 76vw;
+        height: 93vw;
+        width: 93vw;
     }
     .grid-element{
     border-collapse: collapse;
