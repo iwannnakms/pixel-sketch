@@ -193,12 +193,12 @@ input[type="range"]::-webkit-slider-thumb{
     border: dashed 0.2rem white;
     }
     .grid{
-        height: 45vw;
-        width: 90vw;
+        height: 75vw;
+        width: 75vw;
     }
     .grid-container{
-        height: 46vw;
-        width: 91vw;
+        height: 76vw;
+        width: 76vw;
     }
     .grid-element{
     border-collapse: collapse;
