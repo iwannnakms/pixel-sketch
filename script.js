@@ -15,10 +15,10 @@ const fill_button = document.querySelector("#fill");
 
 let current_color = "#ffffff";
 let mouse_pressed = false;
-let grid_let = DEFAULT_SIZE;
 let current_mode = DEFAULT_MODE;
 let grid_len = DEFAULT_SIZE;
 let fill_state_active = false;
+let gridElements = [];
 
 color_button.addEventListener("click",()=>{
     setMode("color-mode");
@@ -80,7 +80,7 @@ function colorGridElement(target,race){
     
     if (target.classList.contains("grid-element")) {
         if(fill_state_active == true && race){
-            floodFill(target.id,target.style.backgroundColor);
+            floodFill(target.dataset.index, target.style.backgroundColor);
         }
         else if(current_mode == "rainbow-mode"){
             const r = Math.floor(Math.random() * 256);
@@ -96,18 +96,18 @@ function colorGridElement(target,race){
         }
     }
 }
-function floodFill(target_id, original_color) {
+function floodFill(target_index, original_color) {
     if (original_color === current_color) {
         return;
     }
-    let queue = [parseInt(target_id.slice(1))];
+    let queue = [parseInt(target_index, 10)];
     let visited = new Set(queue)
     while (queue.length > 0) {
         const current_id = queue.shift();
         if (current_id < 0 || current_id >= (grid_len * grid_len)) {
             continue;
         }
-        const current_target = document.querySelector(`#g${current_id}`);
+        const current_target = gridElements[current_id];
         if (current_target && current_target.style.backgroundColor === original_color) {
             colorGridElement(current_target, false); ;
             const is_left_edge = current_id % grid_len === 0;
@@ -131,12 +131,14 @@ function setupGrid(size){
     console.log(grid_len)
     grid.style.gridTemplateRows = `repeat(${grid_len},1fr)`;
     grid.style.gridTemplateColumns = `repeat(${grid_len},1fr)`;
+    gridElements = [];
     for(let i = 0;i < grid_len * grid_len;i++){
         const grid_element = document.createElement("div");
-        grid_element.id = `g${i}`;
+        grid_element.dataset.index = i;
         grid_element.style.backgroundColor = DEFAULT_BACKGROUND;
         grid_element.classList.add("grid-element");
         grid.appendChild(grid_element);
+         gridElements.push(grid_element);
     }
 }
 function resetGrid(){
@@ -155,17 +157,13 @@ function setMode(mode_name){
     current_mode = mode_name;
     document.querySelector(`#${mode_name}`).classList.add("active");
 }
-function setFill(fill_state){
-    if(fill_state_active){
-        document.querySelector(`#${fill_state}`).classList.remove("active");
-        fill_state_active = false;
-        return;
-    }
-    fill_state_active = true;
-    document.querySelector(`#${fill_state}`).classList.add("active");
+function setFill(fill_state_id){
+    fill_state_active = !fill_state_active;
+    document.querySelector(`#${fill_state_id}`).classList.toggle("active", fill_state_active);
 }
 document.addEventListener('DOMContentLoaded', () => {
     clearGrid();
+    gridElements = [];
     setupGrid(DEFAULT_SIZE);
     color_input.value = DEFAULT_COLOR;
     slider.value = DEFAULT_SIZE;
