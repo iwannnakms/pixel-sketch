@@ -19,6 +19,8 @@ let current_mode = DEFAULT_MODE;
 let grid_len = DEFAULT_SIZE;
 let fill_state_active = false;
 let gridElements = [];
+let lastX = null;
+let lastY = null;
 
 color_button.addEventListener("click",()=>{
     setMode("color-mode");
@@ -43,38 +45,84 @@ slider.addEventListener("input",(event)=>{
     updateDisplay(event);
     setupGrid(parseInt(event.target.value, 10)); 
 })
-grid.addEventListener("mousedown", (e) => {
-    e.preventDefault();
-    mouse_pressed = true;
-    colorGridElement(e.target,true);
-});
-grid.addEventListener("mousemove", (e) => {
-    if (mouse_pressed) {
-        colorGridElement(e.target,true);
-    }
-});
-document.addEventListener("mouseup",()=>{
-    mouse_pressed = false;
-})
-grid.addEventListener("touchstart", (e) => {
-    e.preventDefault(); 
-    mouse_pressed = true;
-    const touch = e.touches[0];
-    const target = document.elementFromPoint(touch.clientX, touch.clientY);
-    colorGridElement(target, true);
-}, { passive: false });
+grid.addEventListener("mousedown", startDrawing);
+grid.addEventListener("mousemove", handleDraw);
+document.addEventListener("mouseup", stopDrawing);
+grid.addEventListener("touchstart", startDrawing, { passive: false });
+grid.addEventListener("touchmove", handleDraw, { passive: false });
+document.addEventListener("touchend", stopDrawing);
 
-grid.addEventListener("touchmove", (e) => {
-    e.preventDefault();
-    if (mouse_pressed) {
-        const touch = e.touches[0];
-        const target = document.elementFromPoint(touch.clientX, touch.clientY);
-        colorGridElement(target, true);
+function getLinePixels(x1, y1, x2, y2) {
+    const pixels = [];
+    const dx = Math.abs(x2 - x1);
+    const dy = -Math.abs(y2 - y1);
+    const sx = x1 < x2 ? 1 : -1;
+    const sy = y1 < y2 ? 1 : -1;
+    let err = dx + dy;
+
+    while (true) {
+        pixels.push({ x: x1, y: y1 });
+        if (x1 === x2 && y1 === y2) break;
+        let e2 = 2 * err;
+        if (e2 >= dy) {
+            err += dy;
+            x1 += sx;
+        }
+        if (e2 <= dx) {
+            err += dx;
+            y1 += sy;
+        }
     }
-}, { passive: false });
-document.addEventListener("touchend", () => {
+    return pixels;
+}
+function getCoordsFromEvent(e) {
+    if (e.touches) {
+        e = e.touches[0];
+    }
+    const rect = grid.getBoundingClientRect();
+    const x = e.clientX - rect.left;
+    const y = e.clientY - rect.top;
+    const cellWidth = rect.width / grid_len;
+    const cellHeight = rect.height / grid_len;
+    const gridX = Math.floor(x / cellWidth);
+    const gridY = Math.floor(y / cellHeight);
+    return { x: gridX, y: gridY };
+}
+function handleDraw(e) {
+    if (!mouse_pressed) return;
+    e.preventDefault();
+
+    const { x, y } = getCoordsFromEvent(e);
+
+    if (lastX !== null && lastY !== null) {
+        const linePixels = getLinePixels(lastX, lastY, x, y);
+        linePixels.forEach(pixel => {
+            const index = pixel.y * grid_len + pixel.x;
+            const target = gridElements[index]; 
+            if (target) {
+                colorGridElement(target, true);
+            }
+        });
+    } else { 
+        const index = y * grid_len + x;
+        const target = gridElements[index];
+        if (target) {
+            colorGridElement(target, true);
+        }
+    }
+    lastX = x;
+    lastY = y;
+}
+function startDrawing(e) {
+    mouse_pressed = true;
+    handleDraw(e);
+}
+
+function stopDrawing() {
     mouse_pressed = false;
-});
+    lastX = null;
+    lastY = null;
+}
 
 function colorGridElement(target,race){
     
@@ -138,7 +186,7 @@ function setupGrid(size){
         grid_element.style.backgroundColor = DEFAULT_BACKGROUND;
         grid_element.classList.add("grid-element");
         grid.appendChild(grid_element);
-         gridElements.push(grid_element);
+        gridElements.push(grid_element);
     }
 }
 function resetGrid(){
